@@ -46,6 +46,21 @@ EN: dict[str, str] = {
     "code.lines": "lines {start}-{end}",
     "code.line": "line {n}",
     "code.suggested_fix": "Suggested Fix",
+    "cli.completed": "Penetration test completed",
+    "cli.session_ended": "SESSION ENDED",
+    "cli.target": "Target",
+    "cli.targets_n": "{n} targets",
+    "cli.output": "Output",
+    "cli.view": "View",
+    "cli.resume": "Resume",
+    "cli.cloud_promo": "Run a pentest in Strix Cloud",
+    "cli.enterprise": "Enterprise",
+    "cli.sub_unavailable": "MODEL NOT AVAILABLE ON SUBSCRIPTION",
+    "cli.details": "Details",
+    "cli.llm_failed": "LLM CONNECTION FAILED",
+    "cli.llm_failed_body1": "Could not establish connection to the language model.",
+    "cli.llm_failed_body2": "Please check your configuration and try again.",
+    "cli.error": "Error",
 }
 
 JA: dict[str, str] = {
@@ -91,6 +106,21 @@ JA: dict[str, str] = {
     "code.lines": "{start}〜{end}行目",
     "code.line": "{n}行目",
     "code.suggested_fix": "修正案",
+    "cli.completed": "侵入テストが完了しました",
+    "cli.session_ended": "セッションが終了しました",
+    "cli.target": "対象",
+    "cli.targets_n": "{n} 件の対象",
+    "cli.output": "出力先",
+    "cli.view": "表示",
+    "cli.resume": "再開",
+    "cli.cloud_promo": "Strix Cloud で侵入テストを実行",
+    "cli.enterprise": "エンタープライズ",
+    "cli.sub_unavailable": "このモデルはご契約のサブスクリプションでは利用できません",
+    "cli.details": "詳細",
+    "cli.llm_failed": "LLM への接続に失敗しました",
+    "cli.llm_failed_body1": "言語モデルに接続できませんでした。",
+    "cli.llm_failed_body2": "設定を確認して、もう一度お試しください。",
+    "cli.error": "エラー",
 }
 
 CATALOGS: dict[str, dict[str, str]] = {"en": EN, "ja": JA}
