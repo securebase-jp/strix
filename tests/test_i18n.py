@@ -52,3 +52,11 @@ def test_prompt_language_directive(monkeypatch, lang, present):
     monkeypatch.setenv("STRIX_LANGUAGE", lang)
     prompt = render_system_prompt()
     assert ("OUTPUT LANGUAGE:" in prompt) is present
+
+
+def test_cli_completion_labels(monkeypatch):
+    monkeypatch.setenv("STRIX_LANGUAGE", "ja")
+    assert t("cli.targets_n", n=3) == "3 件の対象"
+    monkeypatch.delenv("STRIX_LANGUAGE")
+    assert t("cli.targets_n", n=3) == "3 targets"
+    assert t("cli.completed") == "Penetration test completed"

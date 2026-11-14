@@ -17,6 +17,7 @@ from rich.text import Text
 
 from strix.config import codex, load_settings, persist_current
 from strix.core.paths import RUNS_DIR_NAME, run_dir_for
+from strix.i18n import t
 from strix.interface.cli_args import (
     FAIL_ON_SEVERITIES,
     ResumeError,
@@ -195,17 +196,17 @@ def display_completion_message(args: argparse.Namespace, results_path: Path) -> 
 
     completion_text = Text()
     if scan_completed:
-        completion_text.append("Penetration test completed", style="bold #22c55e")
+        completion_text.append(t("cli.completed"), style="bold #22c55e")
     else:
-        completion_text.append("SESSION ENDED", style="bold #eab308")
+        completion_text.append(t("cli.session_ended"), style="bold #eab308")
 
     target_text = Text()
-    target_text.append("Target", style="dim")
+    target_text.append(t("cli.target"), style="dim")
     target_text.append("  ")
     if len(args.targets_info) == 1:
         target_text.append(args.targets_info[0]["original"], style="bold white")
     else:
-        target_text.append(f"{len(args.targets_info)} targets", style="bold white")
+        target_text.append(t("cli.targets_n", n=len(args.targets_info)), style="bold white")
         for target_info in args.targets_info:
             target_text.append("\n        ")
             target_text.append(target_info["original"], style="white")
@@ -219,14 +220,14 @@ def display_completion_message(args: argparse.Namespace, results_path: Path) -> 
 
     results_text = Text()
     results_text.append("\n")
-    results_text.append("Output", style="dim")
+    results_text.append(t("cli.output"), style="dim")
     results_text.append("  ")
     results_text.append(str(results_path), style="#60a5fa")
     panel_parts.extend(["\n", results_text])
 
     view_text = Text()
     view_text.append("\n")
-    view_text.append("View", style="dim")
+    view_text.append(t("cli.view"), style="dim")
     view_text.append("    ")
     view_text.append(f"strix view {args.run_name}", style="#22c55e")
     panel_parts.extend(["\n", view_text])
@@ -234,7 +235,7 @@ def display_completion_message(args: argparse.Namespace, results_path: Path) -> 
     if not scan_completed:
         resume_text = Text()
         resume_text.append("\n")
-        resume_text.append("Resume", style="dim")
+        resume_text.append(t("cli.resume"), style="dim")
         resume_text.append("  ")
         resume_text.append(f"strix --resume {args.run_name}", style="#22c55e")
         panel_parts.extend(["\n", resume_text])
@@ -261,8 +262,8 @@ def display_completion_message(args: argparse.Namespace, results_path: Path) -> 
     )
     if not args.non_interactive:
         console.print(
-            "[dim]Run a pentest in Strix Cloud[/]  [#60a5fa]app.strix.ai[/]  [dim]·[/]  "
-            "[dim]Enterprise[/]  [#60a5fa]strix.ai/demo[/]"
+            f"[dim]{t('cli.cloud_promo')}[/]  [#60a5fa]app.strix.ai[/]  [dim]·[/]  "
+            f"[dim]{t('cli.enterprise')}[/]  [#60a5fa]strix.ai/demo[/]"
         )
     console.print()
     if not args.non_interactive:
@@ -317,17 +318,17 @@ def _print_model_connection_error(exc: BaseException) -> None:
     sub_hint = _subscription_error_hint(exc)
     if sub_hint is not None:
         border_style = "yellow"
-        error_text.append("MODEL NOT AVAILABLE ON SUBSCRIPTION", style="bold yellow")
+        error_text.append(t("cli.sub_unavailable"), style="bold yellow")
         error_text.append("\n\n", style="white")
         error_text.append(f"{sub_hint}\n", style="white")
-        error_text.append(f"\nDetails: {exc}", style="dim white")
+        error_text.append(f"\n{t('cli.details')}: {exc}", style="dim white")
     else:
         border_style = "red"
-        error_text.append("LLM CONNECTION FAILED", style="bold red")
+        error_text.append(t("cli.llm_failed"), style="bold red")
         error_text.append("\n\n", style="white")
-        error_text.append("Could not establish connection to the language model.\n", style="white")
-        error_text.append("Please check your configuration and try again.\n", style="white")
-        error_text.append(f"\nError: {exc}", style="dim white")
+        error_text.append(t("cli.llm_failed_body1") + "\n", style="white")
+        error_text.append(t("cli.llm_failed_body2") + "\n", style="white")
+        error_text.append(f"\n{t('cli.error')}: {exc}", style="dim white")
 
     panel = Panel(
         error_text,
