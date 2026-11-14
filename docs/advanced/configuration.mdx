@@ -119,6 +119,10 @@ affecting the agents that do the actual testing.
   Postman API key (`PMAK-…`). Enables fetching Postman collections by id as a target (`postman://<collection-uid>`), and Postman environments (`postman://<collection-uid>?env=<environment-uid>`) to resolve collection variables. Not needed when passing a local collection export file.
 </ParamField>
 
+<ParamField path="STRIX_LANGUAGE" default="en" type="string">
+  Output language for agent messages and generated reports. Supported: `en`, `ja` (日本語). Unknown values fall back to English. Tool arguments, payloads, code, and identifiers always stay in English; report JSON and SARIF keys are unchanged.
+</ParamField>
+
 <ParamField path="STRIX_TELEMETRY" default="1" type="string">
   Telemetry toggle. Set to `0`, `false`, `no`, or `off` to disable telemetry (PostHog, Scarf, OTEL).
 </ParamField>

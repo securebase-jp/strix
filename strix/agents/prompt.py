@@ -7,6 +7,7 @@ from typing import Any
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+from strix.i18n import DEFAULT_LANGUAGE, LANGUAGE_NAMES, get_language
 from strix.skills import get_available_skills, load_skills, skill_search_dirs
 from strix.utils.resource_paths import get_strix_resource_path
 
@@ -130,6 +131,7 @@ def render_system_prompt(
             requested_skill_names=[name for name in skill_content if name not in shared],
             available_skills=get_available_skills(),
             interactive=interactive,
+            output_language=_output_language(),
             is_root=is_root,
             system_prompt_context=system_prompt_context or {},
             include_scope=include_scope,
@@ -148,6 +150,12 @@ def render_system_prompt(
             len(rendered),
         )
         return str(rendered)
+
+
+def _output_language() -> str | None:
+    """Return the English name of the non-English output language, if any."""
+    language = get_language()
+    return None if language == DEFAULT_LANGUAGE else LANGUAGE_NAMES[language]
 
 
 def render_scope_prompt(system_prompt_context: dict[str, Any] | None) -> str:
